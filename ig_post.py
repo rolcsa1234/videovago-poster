@@ -133,6 +133,10 @@ def post_job(job: dict) -> str:
 def main() -> int:
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
     now = datetime.now(timezone.utc)
+    # fallback-mód (Mac): csak a legalább N perce esedékes jobokat posztolja — így a
+    # felhőé az elsőbbség, a Mac csak a kihagyottakat pótolja (MIN_OVERDUE_MIN env).
+    from datetime import timedelta
+    now -= timedelta(minutes=int(os.environ.get("MIN_OVERDUE_MIN", "0")))
     fails = 0
     for jf in sorted(ROOT.glob("jobs/*.json")):
         slug = jf.stem
