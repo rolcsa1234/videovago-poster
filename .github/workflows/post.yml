@@ -5,9 +5,10 @@
 name: ig-post
 on:
   schedule:
-    # 10–19 UTC = nyáron ~12:00–21:59 CEST, télen ~11:00–20:59 CET (lefedi a napi posztsávokat).
-    # Egész napra: '*/15 * * * *' (publikus repónál ingyen; privátnál több Actions-perc).
-    - cron: '*/15 10-19 * * *'
+    # 07–18 UTC = nyáron 09:00–20:00 CEST (a napi posztablakod). Minden 15. percben → a UI
+    # időpontjaihoz (:00/:15/:30/:45) pontosan illeszkedik. ~48 futás/nap → privát repónál is
+    # INGYEN belefér (<2000 Actions-perc/hó). TÉLEN (CET) 20:00-ig '8-19' kell — szólj a váltáskor.
+    - cron: '*/15 7-18 * * *'
   workflow_dispatch:
   push:
     branches: [main]
