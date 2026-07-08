@@ -1,12 +1,13 @@
-# IG-posztoló — GitHub Actions cron (UTC!). CEST (nyár) = UTC+2:
-# 12:00 -> 10:00 UTC, 17:30 -> 15:30, 20:30 -> 18:30. Több tick/idősáv, mert a
-# GH-cron késhet; a state.json véd a dupla poszt ellen. TÉLEN (CET=UTC+1) +1 óra eltolás kell!
+# IG-posztoló — GitHub Actions cron (UTC!). SŰRŰ POLLING: minden 15. percben egy tág napi
+# ablakban, hogy BÁRMILYEN felhasználó-választotta időpontot elkapjon (nem csak a 3 fix sávot),
+# Mac nélkül is. A UI 15-perces időpontjaihoz (:00/:15/:30/:45) pontosan illeszkedik.
+# A state.json + concurrency véd a dupla poszt ellen. Nem kell DST-igazítás (a tág ablak fedi).
 name: ig-post
 on:
   schedule:
-    - cron: '0,12,25 10 * * *'
-    - cron: '30,42,55 15 * * *'
-    - cron: '30,42,55 18 * * *'
+    # 10–19 UTC = nyáron ~12:00–21:59 CEST, télen ~11:00–20:59 CET (lefedi a napi posztsávokat).
+    # Egész napra: '*/15 * * * *' (publikus repónál ingyen; privátnál több Actions-perc).
+    - cron: '*/15 10-19 * * *'
   workflow_dispatch:
   push:
     branches: [main]
