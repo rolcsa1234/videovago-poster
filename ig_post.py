@@ -24,6 +24,8 @@ STATE = ROOT / "state.json"
 PORT = 8791
 TUNNEL_RE = re.compile(r"https://[a-z0-9-]+\.trycloudflare\.com")
 BASE = "https://graph.instagram.com/v21.0"
+# Stabil PUBLIKUS videó-URL a (publikus) GitHub-repóból — cloudflared tunnel HELYETT (megbízható, Mac-független).
+RAW_BASE = os.environ.get("RAW_BASE", "https://raw.githubusercontent.com/rolcsa1234/videovago-poster/main")
 
 
 def _http_json(url: str, method: str = "GET") -> dict:
@@ -103,31 +105,12 @@ def _ig_publish(video_url: str, cover_url: str | None, caption: str, do_publish:
 
 
 def post_job(job: dict) -> str:
-    video = ROOT / job["video"]
-    cover = ROOT / job["cover"] if job.get("cover") else None
-    httpd = subprocess.Popen(
-        [sys.executable, "-m", "http.server", str(PORT), "--bind", "127.0.0.1",
-         "--directory", str(video.parent)],
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    time.sleep(1)
-    try:
-        for attempt in range(1, 6):                         # trycloudflare flaky -> újrapróba
-            proc = None
-            try:
-                proc, logp, tunnel = _start_tunnel()
-                vurl = f"{tunnel}/{urllib.parse.quote(video.name)}"
-                curl = f"{tunnel}/{urllib.parse.quote(cover.name)}" if cover else None
-                print(f"  tunnel #{attempt}: {vurl}", flush=True)
-                if _wait_public(vurl) and (not curl or _wait_public(curl)):
-                    return _ig_publish(vurl, curl, job.get("caption", ""),
-                                       job.get("publish", True))
-                print(f"  ez a tunnel nem routol ({attempt}/5)", flush=True)
-            finally:
-                if proc:
-                    proc.terminate()
-        raise RuntimeError("nincs működő tunnel 5 próbán át")
-    finally:
-        httpd.terminate()
+    # Stabil PUBLIKUS URL a GitHub-repóból (nincs cloudflared tunnel -> nincs flakiness).
+    # A felhő-runner ÉS a Mac-fallback is ezt használja; a videó már fel van pusholva a repóba.
+    vurl = f"{RAW_BASE}/{urllib.parse.quote(job['video'])}"
+    curl = f"{RAW_BASE}/{urllib.parse.quote(job['cover'])}" if job.get("cover") else None
+    print(f"  publikus URL: {vurl}", flush=True)
+    return _ig_publish(vurl, curl, job.get("caption", ""), job.get("publish", True))
 
 
 def main() -> int:
