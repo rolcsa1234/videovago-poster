@@ -1,2 +1,5 @@
 _cf.log
 cloudflared
+.DS_Store
+__pycache__/
+_cf.log
