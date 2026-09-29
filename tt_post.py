@@ -103,6 +103,9 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    if sys.argv[1:] == ["--token-proba"]:            # csak a kulcsokat ellenőrzi, nem tölt fel semmit
+        print("TikTok token OK" if _token() else "TikTok token HIBA")
+        sys.exit(0)
     if sys.argv[1:] == ["--teszt"]:
         m = datetime(2026, 9, 29, 18, 0, tzinfo=timezone.utc)
         assert esedekes({"tiktok": {"publish_at": "2026-09-29T19:45:00+02:00"}}, m)
