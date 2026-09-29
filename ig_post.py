@@ -126,6 +126,8 @@ def main() -> int:
         if slug in state:
             continue
         job = json.loads(jf.read_text())
+        if job.get("csak_tiktok"):                # az IG már kint van, csak a TikTok-részért jött fel
+            continue
         pa = job.get("publish_at")
         if pa and datetime.fromisoformat(pa) > now:
             print(f"  ⏳ {slug}: még nem esedékes ({pa})")
