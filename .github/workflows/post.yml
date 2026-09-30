@@ -5,8 +5,9 @@
 name: ig-post
 on:
   schedule:
-    # PUBLIKUS repo → korlátlan ingyen Actions. Minden 10. percben, EGÉSZ NAP → bármelyik előre
-    # ütemezett időpontot elkapja ±10 perccel, KIKAPCSOLT géppel is (nincs tunnel, stabil raw URL).
+    # ⚠️ 2026-09-30 MÉRVE: a GitHub ezt a `*/10`-et a gyakorlatban csak 5–6 óránként futtatta (terhelés-
+    # függő, publikus repón ismert). Ezért ez csak TARTALÉK. A pontos indítás: (1) ébren lévő Mac esedékességkor
+    # push-sal lök (felho_atad._tick), (2) külső időzítő workflow_dispatch-csel (cron-job.org, README).
     - cron: '*/10 * * * *'
   workflow_dispatch:
   push:
@@ -36,12 +37,9 @@ jobs:
         run: python3 tt_post.py
       - name: commit state
         if: always()
+        # 2026-09-30: a Mac is ír a state.json-ba → sima rebase-nél ütközhet, és akkor a felhő posztja
+        # nem kerül be (a Mac 20 perc múlva újraposztolná). Az allapot.py összefésüli a kettőt és újrapróbál.
         run: |
           git config user.name "ig-bot"
           git config user.email "ig-bot@users.noreply.github.com"
-          git add state.json
-          if ! git diff --cached --quiet; then
-            git commit -m "state: posted"
-            git pull --rebase origin main
-            git push origin main
-          fi
+          python3 allapot.py push "state: posted"
