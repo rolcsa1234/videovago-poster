@@ -65,6 +65,13 @@ def push_allapot(cwd: Path, uzenet: str, probak: int = 5) -> bool:
     return False                                           # a bejegyzések helyben maradnak, a következő futás tolja
 
 
+def mar_kint(cwd: Path, kulcs: str) -> bool:
+    """Közvetlenül posztolás előtt: szerepel-e már a kulcs az origin legfrissebb state-jében? (dupla ellen)"""
+    if git(cwd, "fetch", "-q", "origin", timeout=60).returncode != 0:
+        return False                                       # nem tudjuk ellenőrizni → a helyi state dönt
+    return kulcs in _olvas(cwd, "origin/main")
+
+
 def szinkron(cwd: Path) -> bool:
     """A helyi repót az origin/main-re hozza; a helyi state-bejegyzéseket megőrzi és feltolja.
 

@@ -28,6 +28,9 @@ BASE = "https://graph.instagram.com/v21.0"
 RAW_BASE = os.environ.get("RAW_BASE", "https://raw.githubusercontent.com/rolcsa1234/videovago-poster/main")
 
 
+import allapot  # noqa: E402
+
+
 def _http_json(url: str, method: str = "GET") -> dict:
     req = urllib.request.Request(url, method=method)
     try:
@@ -131,6 +134,9 @@ def main() -> int:
         pa = job.get("publish_at")
         if pa and datetime.fromisoformat(pa) > now:
             print(f"  ⏳ {slug}: még nem esedékes ({pa})")
+            continue
+        if allapot.mar_kint(ROOT, slug):                # közben máshonnan kiment (másik futás vagy a Mac)
+            print(f"  ⏭ {slug}: már kint van (friss state)", flush=True)
             continue
         try:
             res = post_job(job)

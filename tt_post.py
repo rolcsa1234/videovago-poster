@@ -15,6 +15,8 @@ import json, os, sys, time, urllib.error, urllib.parse, urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import allapot
+
 ROOT = Path(__file__).resolve().parent
 STATE = ROOT / "state.json"
 API = "https://open.tiktokapis.com/v2"
@@ -120,6 +122,9 @@ def main() -> int:
         kulcs = f"tt:{jf.stem}"
         job = json.loads(jf.read_text())
         if kulcs in state or not esedekes(job, most):
+            continue
+        if allapot.mar_kint(ROOT, kulcs):
+            print(f"  ⏭ {kulcs}: már kint van (friss state)", flush=True)
             continue
         try:
             state[kulcs] = feltolt(ROOT / job["video"])

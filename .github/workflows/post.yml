@@ -23,6 +23,11 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        # 2026-09-30: a push-esemény a PUSH PILLANATÁNAK commitját töltené be. Ha közben egy másik futás posztolt,
+        # ez régi state-ből dolgozna → dupla poszt (így ment ki kétszer a cvc_s05 IG-je). A `ref: main` a futás
+        # indulásakori legfrissebb állapotot hozza.
+        with:
+          ref: main
       - name: post due jobs
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
