@@ -48,6 +48,33 @@ def _token() -> str:
     return tok["access_token"]
 
 
+FELDOLGOZAS = "tiktok:FELTOLTVE(feldolgozás alatt) id="
+
+
+def allapot_lekeres(hdr: dict, pid: str) -> str:
+    return (_req(f"{API}/post/publish/status/fetch/", "POST", hdr,
+                 json.dumps({"publish_id": pid}).encode()).get("data") or {}).get("status", "")
+
+
+def utana_nez(state: dict) -> None:
+    """A lassan feldolgozott feltöltések: kész → DRAFT; elbukott → törölve, hogy újra feltöltődjön."""
+    for kulcs, ertek in list(state.items()):
+        if not (kulcs.startswith("tt:") and str(ertek).startswith(FELDOLGOZAS)):
+            continue
+        pid = str(ertek)[len(FELDOLGOZAS):]
+        try:
+            st = allapot_lekeres({"Authorization": f"Bearer {_token()}",
+                                  "Content-Type": "application/json; charset=UTF-8"}, pid)
+        except Exception as e:
+            print(f"  ⚠️ {kulcs}: állapot nem kérdezhető le ({e!r})", flush=True); continue
+        if st in ("SEND_TO_USER_INBOX", "PUBLISH_COMPLETE"):
+            state[kulcs] = f"tiktok:DRAFT(inbox — egy koppintás a TikTok-appban) id={pid}"
+            print(f"  ✅ {kulcs}: megérkezett a TikTok-inboxba", flush=True)
+        elif st == "FAILED":
+            del state[kulcs]
+            print(f"  ❌ {kulcs}: a TikTok feldolgozása elbukott — a következő futás újra feltölti", flush=True)
+
+
 def feltolt(video: Path) -> str:
     """Inbox-draft FILE_UPLOAD-dal (ugyanaz, mint a Mac posztolo.post_tiktok inbox-ága)."""
     hdr = {"Authorization": f"Bearer {_token()}", "Content-Type": "application/json; charset=UTF-8"}
@@ -67,15 +94,16 @@ def feltolt(video: Path) -> str:
         urllib.request.urlopen(urllib.request.Request(up, data=raw[lo:hi + 1], method="PUT", headers={
             "Content-Type": "video/mp4", "Content-Length": str(hi - lo + 1),
             "Content-Range": f"bytes {lo}-{hi}/{size}"}), timeout=300).read()
-    for _ in range(30):
-        st = (_req(f"{API}/post/publish/status/fetch/", "POST", hdr,
-                   json.dumps({"publish_id": pid}).encode()).get("data") or {}).get("status", "")
+    for _ in range(18):                               # ~3 perc; utána a következő futás nézi meg (utanaNez)
+        st = allapot_lekeres(hdr, pid)
         if st in ("SEND_TO_USER_INBOX", "PUBLISH_COMPLETE"):
             return f"tiktok:DRAFT(inbox — egy koppintás a TikTok-appban) id={pid}"
         if st == "FAILED":
             raise RuntimeError(f"feldolgozási hiba (id={pid})")
         time.sleep(10)
-    raise RuntimeError(f"nem lett kész 5 perc alatt (id={pid})")
+    # 2026-09-30: 5 perc után hibát dobtunk, a state üres maradt → a következő futás ÚJRA feltöltötte volna
+    # (dupla draft). A videó már fent van a TikToknál, csak a feldolgozás lassú: feljegyezzük, és később ellenőrizzük.
+    return f"{FELDOLGOZAS}{pid}"
 
 
 def esedekes(job: dict, most: datetime) -> bool:
@@ -87,6 +115,7 @@ def main() -> int:
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
     most = datetime.now(timezone.utc) - timedelta(minutes=int(os.environ.get("MIN_OVERDUE_MIN", "0")))
     hibak = 0
+    utana_nez(state)
     for jf in sorted(ROOT.glob("jobs/*.json")):
         kulcs = f"tt:{jf.stem}"
         job = json.loads(jf.read_text())
@@ -111,6 +140,11 @@ if __name__ == "__main__":
         assert esedekes({"tiktok": {"publish_at": "2026-09-29T19:45:00+02:00"}}, m)
         assert not esedekes({"tiktok": {"publish_at": "2026-09-29T20:45:00+02:00"}}, m)
         assert not esedekes({"caption": "csak IG"}, m)
+        allapot_lekeres = lambda hdr, pid: {"p1": "SEND_TO_USER_INBOX", "p2": "FAILED"}.get(pid, "PROCESSING_UPLOAD")
+        _token = lambda: "x"  # noqa: E731
+        st = {"tt:a": FELDOLGOZAS + "p1", "tt:b": FELDOLGOZAS + "p2", "tt:c": FELDOLGOZAS + "p3", "d": "POSTED"}
+        utana_nez(st)
+        assert st["tt:a"].startswith("tiktok:DRAFT") and "tt:b" not in st and st["tt:c"].startswith(FELDOLGOZAS)
         print("ok")
         sys.exit(0)
     sys.exit(main())
