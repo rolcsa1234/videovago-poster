@@ -1,9 +1,11 @@
 {
   "video": "videos/pk3_s05_ezt_adhatod_el.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Ezeket adhatod el digitális termékként: Claude-parancsok, prompt-csomagok, videós útmutatók. 💡\nAz AI most nagyon felkapott téma, ezért érdemes erre építeni. Te mit csomagolnál be?\n\n👉 Te melyiket próbálnád ki? Írd be kommentbe: 1, 2 vagy 3!\n\n#digitálistermék #ai #claude #prompt",
     "publish_at": "2026-10-07T14:45:00+02:00"
-  }
+  },
+  "caption": "Ezeket adhatod el digitális termékként: Claude-parancsok, prompt-csomagok, videós útmutatók. 💡\nAz AI most nagyon felkapott téma, ezért érdemes erre építeni. Te mit csomagolnál be?\n\n👉 Te melyiket próbálnád ki? Írd be kommentbe: 1, 2 vagy 3!\n\n#digitálistermék #ai #claude #prompt",
+  "publish_at": "2026-10-07T15:00:00+02:00",
+  "cover": "videos/pk3_s05_ezt_adhatod_el.jpg"
 }

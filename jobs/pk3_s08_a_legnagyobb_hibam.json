@@ -1,9 +1,11 @@
 {
   "video": "videos/pk3_s08_a_legnagyobb_hibam.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "A legnagyobb hibám AI-jal: lemásoltam más tartalmát. ⚠️\nEzzel megszegtem a szabályzatot. Te ne kövesd el ugyanezt: készíts egyedi tartalmat.\n\n👉 Te melyiket próbálnád ki? Írd be kommentbe: 1, 2 vagy 3!\n\n#ai #tartalomgyártás #aitippek #tanulság",
     "publish_at": "2026-10-05T19:45:00+02:00"
-  }
+  },
+  "caption": "A legnagyobb hibám AI-jal: lemásoltam más tartalmát. ⚠️\nEzzel megszegtem a szabályzatot. Te ne kövesd el ugyanezt: készíts egyedi tartalmat.\n\n👉 Te melyiket próbálnád ki? Írd be kommentbe: 1, 2 vagy 3!\n\n#ai #tartalomgyártás #aitippek #tanulság",
+  "publish_at": "2026-10-05T20:00:00+02:00",
+  "cover": "videos/pk3_s08_a_legnagyobb_hibam.jpg"
 }

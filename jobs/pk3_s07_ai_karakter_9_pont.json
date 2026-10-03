@@ -1,9 +1,11 @@
 {
   "video": "videos/pk3_s07_ai_karakter_9_pont.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Nulla tudással kezdtem az AI-karakterekkel, és most 9 pontot adok rájuk a 10-ből. 🤖\nTízet nem mondok, az túl nagy ego lenne. De teljesen nulláról is el lehet indítani.\n\n👉 Te melyiket próbálnád ki? Írd be kommentbe: 1, 2 vagy 3!\n\n#ai #aikarakter #aitippek #mesterségesintelligencia",
     "publish_at": "2026-10-06T19:45:00+02:00"
-  }
+  },
+  "caption": "Nulla tudással kezdtem az AI-karakterekkel, és most 9 pontot adok rájuk a 10-ből. 🤖\nTízet nem mondok, az túl nagy ego lenne. De teljesen nulláról is el lehet indítani.\n\n👉 Te melyiket próbálnád ki? Írd be kommentbe: 1, 2 vagy 3!\n\n#ai #aikarakter #aitippek #mesterségesintelligencia",
+  "publish_at": "2026-10-06T20:00:00+02:00",
+  "cover": "videos/pk3_s07_ai_karakter_9_pont.jpg"
 }

@@ -1,9 +1,11 @@
 {
   "video": "videos/pk3_s02_igy_szerezz_ugyfelet.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Így szerezhetsz ügyfelet weboldalkészítéshez: csinálsz nekik egy teszt-oldalt, és megmutatod. 📞\nFelhívod őket, vagy bemész személyesen: foglalási rendszer, e-mail, előre foglalás. Ennyire egyszerű.\n\n👉 Írd be kommentbe: PROMPT, és elküldöm a teljes master promptot, amivel az oldalt készítettem.\n\n#weboldal #vállalkozás #ügyfélszerzés #ai",
     "publish_at": "2026-10-06T10:45:00+02:00"
-  }
+  },
+  "caption": "Így szerezhetsz ügyfelet weboldalkészítéshez: csinálsz nekik egy teszt-oldalt, és megmutatod. 📞\nFelhívod őket, vagy bemész személyesen: foglalási rendszer, e-mail, előre foglalás. Ennyire egyszerű.\n\n👉 Írd be kommentbe: PROMPT, és elküldöm a teljes master promptot, amivel az oldalt készítettem.\n\n#weboldal #vállalkozás #ügyfélszerzés #ai",
+  "publish_at": "2026-10-06T11:00:00+02:00",
+  "cover": "videos/pk3_s02_igy_szerezz_ugyfelet.jpg"
 }

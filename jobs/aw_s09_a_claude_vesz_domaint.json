@@ -1,9 +1,11 @@
 {
   "video": "videos/aw_s09_a_claude_vesz_domaint.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Megkérdeztem a Claude-ot, hogyan tegyem ki az oldalt, és hogyan vegyek domaint. 🤖\nVégigvezet egészen a fizetésig, de fizetni nem fog helyetted. Próbáld ki, le fogsz döbbenni.\n\n👉 Írd be kommentbe: PROMPT, és elküldöm a teljes master promptot.\n\n#claude #ai #weboldal #domain",
     "publish_at": "2026-10-04T19:45:00+02:00"
-  }
+  },
+  "caption": "Megkérdeztem a Claude-ot, hogyan tegyem ki az oldalt, és hogyan vegyek domaint. 🤖\nVégigvezet egészen a fizetésig, de fizetni nem fog helyetted. Próbáld ki, le fogsz döbbenni.\n\n👉 Írd be kommentbe: PROMPT, és elküldöm a teljes master promptot.\n\n#claude #ai #weboldal #domain",
+  "publish_at": "2026-10-04T20:00:00+02:00",
+  "cover": "videos/aw_s09_a_claude_vesz_domaint.jpg"
 }
