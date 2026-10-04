@@ -108,6 +108,12 @@ def feltolt(video: Path) -> str:
     return f"{FELDOLGOZAS}{pid}"
 
 
+def inbox_tele(e: Exception) -> bool:
+    """A TikTok nem fogad új inbox-draftot, amíg túl sok függő piszkozat vár (Ákos még nem posztolta ki őket).
+    Ez várakozás, nem hiba: a futás ne bukjon el (különben 5 percenként hiba-email jön), a következő futás újrapróbálja."""
+    return "spam_risk_too_many_pending_share" in str(e)
+
+
 def esedekes(job: dict, most: datetime) -> bool:
     tt = job.get("tiktok")
     return bool(tt) and (not tt.get("publish_at") or datetime.fromisoformat(tt["publish_at"]) <= most)
@@ -130,6 +136,9 @@ def main() -> int:
             state[kulcs] = feltolt(ROOT / job["video"])
             print(f"  ✅ {kulcs}: {state[kulcs]}", flush=True)
         except Exception as e:
+            if inbox_tele(e):
+                print(f"  ⏸ {kulcs}: tele a TikTok-inbox (túl sok függő piszkozat) — a következő futás újrapróbálja", flush=True)
+                break
             hibak += 1
             print(f"  ❌ {kulcs}: {e!r}", flush=True)
         STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2))
@@ -145,6 +154,8 @@ if __name__ == "__main__":
         assert esedekes({"tiktok": {"publish_at": "2026-09-29T19:45:00+02:00"}}, m)
         assert not esedekes({"tiktok": {"publish_at": "2026-09-29T20:45:00+02:00"}}, m)
         assert not esedekes({"caption": "csak IG"}, m)
+        assert inbox_tele(RuntimeError('HTTP 400: {"error":{"code":"spam_risk_too_many_pending_share"}}'))
+        assert not inbox_tele(RuntimeError("HTTP 401: access_token_invalid"))
         allapot_lekeres = lambda hdr, pid: {"p1": "SEND_TO_USER_INBOX", "p2": "FAILED"}.get(pid, "PROCESSING_UPLOAD")
         _token = lambda: "x"  # noqa: E731
         st = {"tt:a": FELDOLGOZAS + "p1", "tt:b": FELDOLGOZAS + "p2", "tt:c": FELDOLGOZAS + "p3", "d": "POSTED"}
