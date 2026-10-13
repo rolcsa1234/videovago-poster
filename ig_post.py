@@ -80,11 +80,13 @@ def _wait_public(url: str, tries: int = 14) -> bool:
     return False
 
 
-def _ig_publish(video_url: str, cover_url: str | None, caption: str, do_publish: bool) -> str:
+def _ig_publish(video_url: str, cover_url: str | None, caption: str, do_publish: bool, trial: str | None = None) -> str:
     tok, uid = os.environ["IG_ACCESS_TOKEN"], os.environ["IG_USER_ID"]
     params = {"media_type": "REELS", "video_url": video_url, "caption": caption, "access_token": tok}
     if cover_url:
         params["cover_url"] = cover_url
+    if trial:                                            # próba-reel (Ákos 10-13): csak nem-követőknek; MANUAL = csak kézzel kerül a követőkhöz
+        params["trial_params"] = json.dumps({"graduation_strategy": trial})
     cont = _http_json(f"{BASE}/{uid}/media?{urllib.parse.urlencode(params)}", "POST")
     cid = cont.get("id")
     if not cid:
@@ -113,7 +115,7 @@ def post_job(job: dict) -> str:
     vurl = f"{RAW_BASE}/{urllib.parse.quote(job['video'])}"
     curl = f"{RAW_BASE}/{urllib.parse.quote(job['cover'])}" if job.get("cover") else None
     print(f"  publikus URL: {vurl}", flush=True)
-    return _ig_publish(vurl, curl, job.get("caption", ""), job.get("publish", True))
+    return _ig_publish(vurl, curl, job.get("caption", ""), job.get("publish", True), job.get("trial"))
 
 
 def main() -> int:
