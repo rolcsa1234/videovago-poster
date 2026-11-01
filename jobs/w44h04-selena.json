@@ -1,9 +1,11 @@
 {
   "video": "videos/w44h04-selena.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Az egyik képen Selena Gomez, a másikat egyetlen mondatból generáltam.\nNézd meg közelről, a megfejtés a videó végén.\nKommenteld, hogy RECEPT, és elküldöm a mondatot.\n\n#selenagomez #ai #aikarakter #valódivagyai",
     "publish_at": "2026-11-05T18:45:00+01:00"
-  }
+  },
+  "caption": "Az egyik képen Selena Gomez, a másikat egyetlen mondatból generáltam.\nNézd meg közelről, a megfejtés a videó végén.\nKommenteld, hogy RECEPT, és elküldöm a mondatot.\n\n#selenagomez #ai #aikarakter #valódivagyai",
+  "publish_at": "2026-11-05T19:00:00+01:00",
+  "cover": "videos/w44h04-selena.jpg"
 }
