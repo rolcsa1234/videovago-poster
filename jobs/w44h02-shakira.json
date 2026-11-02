@@ -1,9 +1,11 @@
 {
   "video": "videos/w44h02-shakira.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Három fotó, és csak az egyiken van Shakira, a másik kettő az AI-modellem, Lili.\nÖt másodperced van, a megfejtés a videó végén.\nMelyikre tippelsz?\n\n#shakira #ai #aikarakter #valódivagyai",
     "publish_at": "2026-11-06T07:15:00+01:00"
-  }
+  },
+  "caption": "Három fotó, és csak az egyiken van Shakira, a másik kettő az AI-modellem, Lili.\nÖt másodperced van, a megfejtés a videó végén.\nMelyikre tippelsz?\n\n#shakira #ai #aikarakter #valódivagyai",
+  "publish_at": "2026-11-06T07:30:00+01:00",
+  "cover": "videos/w44h02-shakira.jpg"
 }
