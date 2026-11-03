@@ -1,9 +1,11 @@
 {
   "video": "videos/w44h05-dua.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Az egyik képen Dua Lipa, a másikon egy nem létező ember.\nDe vigyázz, a második körben csalok. A megfejtés a videó végén.\nHányat találtál el?\n\n#dualipa #ai #aikarakter #valódivagyai",
     "publish_at": "2026-11-07T17:45:00+01:00"
-  }
+  },
+  "caption": "Az egyik képen Dua Lipa, a másikon egy nem létező ember.\nDe vigyázz, a második körben csalok. A megfejtés a videó végén.\nHányat találtál el?\n\n#dualipa #ai #aikarakter #valódivagyai",
+  "publish_at": "2026-11-07T18:00:00+01:00",
+  "cover": "videos/w44h05-dua.jpg"
 }
