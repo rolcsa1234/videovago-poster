@@ -1,9 +1,11 @@
 {
   "video": "videos/w44h03-kim.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Kim Kardashian vagy egy lány, aki nem is létezik?\nHárom kör, egyre nehezebb, a harmadik szinte lehetetlen. A megfejtés a videó végén.\nHány kört találtál el?\n\n#kimkardashian #ai #aikarakter #valódivagyai",
     "publish_at": "2026-11-07T09:45:00+01:00"
-  }
+  },
+  "caption": "Kim Kardashian vagy egy lány, aki nem is létezik?\nHárom kör, egyre nehezebb, a harmadik szinte lehetetlen. A megfejtés a videó végén.\nHány kört találtál el?\n\n#kimkardashian #ai #aikarakter #valódivagyai",
+  "publish_at": "2026-11-07T10:00:00+01:00",
+  "cover": "videos/w44h03-kim.jpg"
 }
