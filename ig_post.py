@@ -29,6 +29,7 @@ RAW_BASE = os.environ.get("RAW_BASE", "https://raw.githubusercontent.com/rolcsa1
 
 
 import allapot  # noqa: E402
+import nagy  # noqa: E402
 
 
 def _http_json(url: str, method: str = "GET") -> dict:
@@ -40,12 +41,24 @@ def _http_json(url: str, method: str = "GET") -> dict:
         raise RuntimeError(f"HTTP {e.code}: {e.read().decode(errors='replace')[:400]}")
 
 
+CF_URL = "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64"
+
+
+def _cloudflared() -> Path:
+    """A Macen a felho/cloudflared megvan; a GitHub-futón (Linux) az első nagy jobnál letöltjük (hivatalos kiadás)."""
+    cf = ROOT / "cloudflared"
+    if not cf.exists():
+        urllib.request.urlretrieve(CF_URL, cf)
+        cf.chmod(0o755)
+    return cf
+
+
 def _start_tunnel() -> tuple[subprocess.Popen, Path, str]:
     """Quick-tunnel; kimenet FÁJLBA (a tele pipe blokkolná a cloudflared-et)."""
     logp = ROOT / "_cf.log"
     logf = open(logp, "w")
     proc = subprocess.Popen(
-        [str(ROOT / "cloudflared"), "tunnel", "--no-autoupdate", "--url", f"http://127.0.0.1:{PORT}"],
+        [str(_cloudflared()), "tunnel", "--no-autoupdate", "--url", f"http://127.0.0.1:{PORT}"],
         stdout=logf, stderr=subprocess.STDOUT)
     url, registered, deadline = "", False, time.time() + 90
     while time.time() < deadline:
@@ -109,7 +122,30 @@ def _ig_publish(video_url: str, cover_url: str | None, caption: str, do_publish:
     return f"POSTED id={pub.get('id', '?')}"
 
 
+def _post_alagutan(job: dict) -> str:
+    """NAGY job (2026-11-13): az eredeti nincs a main-ben (GitHub 100 MB-os korlát) → összefűzzük a nagy/* ágból
+    (bitre ellenőrizve), és helyi szerver + cloudflared-alagút adja az IG-nek. Az alagút a konténer elkészültéig él."""
+    video = nagy.helyi(ROOT, job)
+    srv = subprocess.Popen([sys.executable, "-m", "http.server", str(PORT), "--bind", "127.0.0.1",
+                            "--directory", str(video.parent)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    proc = None
+    try:
+        proc, _, base = _start_tunnel()
+        vurl = f"{base}/{urllib.parse.quote(video.name)}"
+        if not _wait_public(vurl):
+            raise RuntimeError(f"az alagút nem szolgálja ki a videót ({vurl})")
+        curl = f"{RAW_BASE}/{urllib.parse.quote(job['cover'])}" if job.get("cover") else None
+        print(f"  publikus URL (alagút): {vurl}", flush=True)
+        return _ig_publish(vurl, curl, job.get("caption", ""), job.get("publish", True), job.get("trial"))
+    finally:
+        if proc:
+            proc.terminate()
+        srv.terminate()
+
+
 def post_job(job: dict) -> str:
+    if job.get("darabok"):
+        return _post_alagutan(job)
     # Stabil PUBLIKUS URL a GitHub-repóból (nincs cloudflared tunnel -> nincs flakiness).
     # A felhő-runner ÉS a Mac-fallback is ezt használja; a videó már fel van pusholva a repóba.
     vurl = f"{RAW_BASE}/{urllib.parse.quote(job['video'])}"

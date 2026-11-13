@@ -16,6 +16,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import allapot
+import nagy
 
 ROOT = Path(__file__).resolve().parent
 STATE = ROOT / "state.json"
@@ -133,7 +134,7 @@ def main() -> int:
             print(f"  ⏭ {kulcs}: már kint van (friss state)", flush=True)
             continue
         try:
-            state[kulcs] = feltolt(ROOT / job["video"])
+            state[kulcs] = feltolt(nagy.helyi(ROOT, job))   # nagy jobnál a nagy/* ágból, bitre ellenőrizve
             print(f"  ✅ {kulcs}: {state[kulcs]}", flush=True)
         except Exception as e:
             if inbox_tele(e):

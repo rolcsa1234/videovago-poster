@@ -3,3 +3,4 @@ cloudflared
 .DS_Store
 __pycache__/
 _cf.log
+_nagy/

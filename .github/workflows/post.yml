@@ -48,3 +48,7 @@ jobs:
           git config user.name "ig-bot"
           git config user.email "ig-bot@users.noreply.github.com"
           python3 allapot.py push "state: posted"
+      - name: nagy-ágak takarítása
+        # 2026-11-13: a nagy (100 MB+) eredetik a nagy/<slug> ágon jönnek; ha minden hivatkozó poszt kint van, töröljük
+        if: always()
+        run: python3 nagy.py takarit
