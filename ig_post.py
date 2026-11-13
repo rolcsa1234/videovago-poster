@@ -183,6 +183,8 @@ def main() -> int:
         except Exception as e:
             fails += 1
             print(f"  ❌ {slug}: {e!r}", flush=True)
+            if os.environ.get("GITHUB_ACTIONS"):      # a napló bejelentkezéshez kötött, az annotáció API-n is olvasható
+                print(f"::error::{slug}: {e!r}"[:900], flush=True)
         STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2))
     return 1 if fails else 0
 
