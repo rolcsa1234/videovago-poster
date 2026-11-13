@@ -39,8 +39,14 @@ def _olvas(cwd: Path, ref: str | None = None) -> dict:
 
 
 def egyesit(origin: dict, helyi: dict) -> dict:
-    """Kulcsok uniója; közös kulcsnál az origin értéke marad (mindkettő ugyanazt jelenti: kint van)."""
-    return {**helyi, **origin}
+    """Kulcsok uniója; közös kulcsnál az origin értéke marad (mindkettő ugyanazt jelenti: kint van).
+    Kivétel (2026-11-13): a TikTok „feldolgozás alatt” köztes állapot — a helyi DRAFT-ra váltás felülírja, különben
+    sosem kerül fel (a próba-draft 2 órán át FELTOLTVE maradt, és a nagy/* ág sem törlődött)."""
+    uj = {**helyi, **origin}
+    for k, v in helyi.items():
+        if str(origin.get(k, "")).startswith("tiktok:FELTOLTVE"):
+            uj[k] = v
+    return uj
 
 
 def push_allapot(cwd: Path, uzenet: str, probak: int = 5) -> bool:
@@ -92,6 +98,10 @@ def szinkron(cwd: Path) -> bool:
 
 
 def _teszt() -> None:
+    fel, kesz = "tiktok:FELTOLTVE(feldolgozás alatt) id=1", "tiktok:DRAFT(inbox) id=1"
+    assert egyesit({"tt:a": fel}, {"tt:a": kesz}) == {"tt:a": kesz}          # a köztes állapotot a kész felülírja
+    assert egyesit({"tt:a": kesz}, {"tt:a": fel}) == {"tt:a": kesz}          # visszafelé nem
+    assert egyesit({"a": "POSTED x"}, {"a": "POSTED y", "b": "z"}) == {"a": "POSTED x", "b": "z"}
     """Két klón + egy „origin”: a 09-30-i beragadás és a párhuzamos state-írás, hálózat nélkül."""
     import tempfile
     with tempfile.TemporaryDirectory() as t:
