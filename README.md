@@ -8,6 +8,12 @@ húzza le (nincs tunnel), a TikTok inbox-draftot kap (`tt_post.py`). Állapot: `
 A Mac `felho_atad.py`-ja 96 órával előre feltölti a `jobs/` és `videos/` mappába, ami esedékes lesz.
 Kézzel nem kell ide semmit tenni.
 
+## Nagy (100 MB+) videók (2026-11-13)
+A GitHub 100 MB fölött nem fogad el fájlt, ezért a nagy EREDETI darabolva egy külön ágra kerül (`nagy/<slug>`, nem a main-be).
+A job `darabok` mezője (ág, sha256, méret) alapján a futó letölti, összefűzi és bitre ellenőrzi (`nagy.py`). Az IG ezt
+cloudflared-alagúton kapja, a TikTok FILE_UPLOAD-dal. Ha minden hivatkozó poszt kint van, a `nagy.py takarit` lépés
+törli az ágat. Önteszt: `python3 nagy.py --teszt`. A felhő hibái annotációként látszanak a futás oldalán.
+
 ## Mikor fut (2026-09-30 óta)
 A GitHub `*/10` ütemezése a gyakorlatban csak 5–6 óránként indult el, ezért a posztok órákat késtek.
 Most három út indítja, ebben a sorrendben:
