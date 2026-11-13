@@ -53,7 +53,7 @@ def push_allapot(cwd: Path, uzenet: str, probak: int = 5) -> bool:
     """A helyi state.json új bejegyzéseit az originéval összefésülve feltolja. True = fent van."""
     helyi = _olvas(cwd)
     for _ in range(probak):
-        if git(cwd, "fetch", "-q", "origin").returncode != 0:
+        if git(cwd, "fetch", "-q", "origin", "main").returncode != 0:
             time.sleep(3); continue
         origin = _olvas(cwd, "origin/main")
         uj = egyesit(origin, helyi)
@@ -73,7 +73,7 @@ def push_allapot(cwd: Path, uzenet: str, probak: int = 5) -> bool:
 
 def mar_kint(cwd: Path, kulcs: str) -> bool:
     """Közvetlenül posztolás előtt: szerepel-e már a kulcs az origin legfrissebb state-jében? (dupla ellen)"""
-    if git(cwd, "fetch", "-q", "origin", timeout=60).returncode != 0:
+    if git(cwd, "fetch", "-q", "origin", "main", timeout=60).returncode != 0:
         return False                                       # nem tudjuk ellenőrizni → a helyi state dönt
     return kulcs in _olvas(cwd, "origin/main")
 
@@ -85,7 +85,7 @@ def szinkron(cwd: Path) -> bool:
     posztoljon: régi állapotból dolgozva duplán posztolhatna.
     """
     helyi = _olvas(cwd)
-    if git(cwd, "fetch", "-q", "origin").returncode != 0:
+    if git(cwd, "fetch", "-q", "origin", "main").returncode != 0:
         return False
     git(cwd, "rebase", "--abort")                          # egy félbemaradt rebase se akassza meg
     git(cwd, "reset", "-q", "--hard", "origin/main")
