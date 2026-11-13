@@ -1,0 +1,16 @@
+{
+  "video": "_nagy/proba-nagy-1113.mp4",
+  "publish": false,
+  "caption": "PRÓBA (nem publikus konténer) — nagy eredeti a felhőn át",
+  "publish_at": "2026-11-13T08:41:44+00:00",
+  "darabok": {
+    "ag": "nagy/proba-nagy-1113",
+    "sha256": "124740efe5e4470cacd5de5908fc629a7ac95f5497026c873dc66de913897c52",
+    "meret": 287098716,
+    "db": 4
+  },
+  "tiktok": {
+    "caption": "PRÓBA — törölhető",
+    "publish_at": "2026-11-13T08:41:44+00:00"
+  }
+}
