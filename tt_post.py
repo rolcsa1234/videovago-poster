@@ -124,7 +124,10 @@ def main() -> int:
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
     most = datetime.now(timezone.utc) - timedelta(minutes=int(os.environ.get("MIN_OVERDUE_MIN", "0")))
     hibak = 0
+    elotte = dict(state)
     utana_nez(state)
+    if state != elotte:                               # 2026-11-13: eddig csak egy újabb feltöltéssel együtt íródott ki → a DRAFT-ra
+        STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2))   # váltás elveszett (a nagy/* ág sem törlődött)
     for jf in sorted(ROOT.glob("jobs/*.json")):
         kulcs = f"tt:{jf.stem}"
         job = json.loads(jf.read_text())
