@@ -1,9 +1,11 @@
 {
   "video": "videos/w46-ls2.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "„Ez fix kamu” – ezt írták a videóm alá.\nItt vannak a kifizetések és a bevétel: egyetlen magyar AI-karakter hozta, a bizonyítékok májustól fent vannak.\nTelegram: @magyarAi\n\n#ai #aikarakter #bizonyíték",
     "publish_at": "2026-11-21T17:45:00+01:00"
-  }
+  },
+  "caption": "„Ez fix kamu” – ezt írták a videóm alá.\nItt vannak a kifizetések és a bevétel: egyetlen magyar AI-karakter hozta, a bizonyítékok májustól fent vannak.\nTelegram: @magyarAi\n\n#ai #aikarakter #bizonyíték",
+  "publish_at": "2026-11-21T18:00:00+01:00",
+  "cover": "videos/w46-ls2.jpg"
 }
