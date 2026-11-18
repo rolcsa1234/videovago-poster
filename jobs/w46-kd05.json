@@ -1,9 +1,11 @@
 {
   "video": "videos/w46-kd05.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Az ötödik parancs magától dolgozik helyetted.\nÖt Claude Code-parancs, amivel a videóimat vágom: ultrathink, /btw, /compact, /insights és /loop.\nKommenteld, hogy KÓD, és elküldöm a további parancsokat.\n\n#claudecode #ai #claude",
     "publish_at": "2026-11-22T09:45:00+01:00"
-  }
+  },
+  "caption": "Az ötödik parancs magától dolgozik helyetted.\nÖt Claude Code-parancs, amivel a videóimat vágom: ultrathink, /btw, /compact, /insights és /loop.\nKommenteld, hogy KÓD, és elküldöm a további parancsokat.\n\n#claudecode #ai #claude",
+  "publish_at": "2026-11-22T10:00:00+01:00",
+  "cover": "videos/w46-kd05.jpg"
 }
