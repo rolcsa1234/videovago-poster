@@ -1,0 +1,17 @@
+{
+  "video": "_nagy/w48-bw04.mp4",
+  "publish": true,
+  "caption": "Egy nap alatt elkészítettem a saját AI-modellemet.\nKét arc, egy stúdió, utána képek bárhol, és 20 perc alatt videó is: így csinálod.\nBlack Week: most olcsóbban tanulhatod meg nálam. magyaraiofm.com\n\n#ai #aimodell #aikarakter",
+  "publish_at": "2026-11-27T07:30:00+01:00",
+  "tiktok": {
+    "caption": "Egy nap alatt elkészítettem a saját AI-modellemet.\nKét arc, egy stúdió, utána képek bárhol, és 20 perc alatt videó is: így csinálod.\nBlack Week: most olcsóbban tanulhatod meg nálam. magyaraiofm.com\n\n#ai #aimodell #aikarakter",
+    "publish_at": "2026-11-27T07:15:00+01:00"
+  },
+  "darabok": {
+    "ag": "nagy/w48-bw04",
+    "sha256": "3dfe6c73118e33141adb7ce43691ff0e7c36f036784b713703ed19e32e526cad",
+    "meret": 143699338,
+    "db": 2
+  },
+  "cover": "videos/w48-bw04.jpg"
+}
