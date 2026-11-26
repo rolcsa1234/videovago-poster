@@ -1,7 +1,6 @@
 {
   "video": "_nagy/w48-gta04.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Lenéztem, és már a GTA VI-ban álltam.\nUgyanaz az arc, ugyanaz a hang, nincs zöld háttér, nincs stúdió: egyetlen fotó és AI.\nKommenteld, hogy GTA, és elküldöm a linket.\n\n#gta6 #ai #vicecity",
     "publish_at": "2026-11-30T18:45:00+01:00"
@@ -11,5 +10,8 @@
     "sha256": "b60373357029ddcbcdc01115660da9bc930c0daba0609c3db4d38b28c5473d69",
     "meret": 100008421,
     "db": 2
-  }
+  },
+  "caption": "Lenéztem, és már a GTA VI-ban álltam.\nUgyanaz az arc, ugyanaz a hang, nincs zöld háttér, nincs stúdió: egyetlen fotó és AI.\nKommenteld, hogy GTA, és elküldöm a linket.\n\n#gta6 #ai #vicecity",
+  "publish_at": "2026-11-30T19:00:00+01:00",
+  "cover": "videos/w48-gta04.jpg"
 }
