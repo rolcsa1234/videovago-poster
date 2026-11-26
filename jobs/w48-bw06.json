@@ -1,0 +1,17 @@
+{
+  "video": "_nagy/w48-bw06.mp4",
+  "publish": true,
+  "caption": "Ha az AI-képed műanyagnak néz ki, nem az AI a buta.\n3 dolog kell a promptba: honnan jön a fény, milyen szögből és kamerával, és a természetes bőr.\nBlack Week: most olcsóbban tanulhatod meg nálam. magyaraiofm.com\n\n#ai #prompt #aimodell",
+  "publish_at": "2026-11-30T07:30:00+01:00",
+  "tiktok": {
+    "caption": "Ha az AI-képed műanyagnak néz ki, nem az AI a buta.\n3 dolog kell a promptba: honnan jön a fény, milyen szögből és kamerával, és a természetes bőr.\nBlack Week: most olcsóbban tanulhatod meg nálam. magyaraiofm.com\n\n#ai #prompt #aimodell",
+    "publish_at": "2026-11-30T07:15:00+01:00"
+  },
+  "darabok": {
+    "ag": "nagy/w48-bw06",
+    "sha256": "678302fa3b66c681aa8f50ae25c53c05604f86ba72b3080168aa2030e4f28d3a",
+    "meret": 143646479,
+    "db": 2
+  },
+  "cover": "videos/w48-bw06.jpg"
+}
