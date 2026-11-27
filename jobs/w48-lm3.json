@@ -1,9 +1,11 @@
 {
   "video": "videos/w48-lm3.mp4",
   "publish": true,
-  "csak_tiktok": true,
   "tiktok": {
     "caption": "Aki ért az AI-hoz, azt nem rúgják ki.\nSőt, már új munkakör is van: cégekhez megy, és betanítja az embereket, hogyan használják.\nKövess be, és tanuld meg te is.\n\n#ai #munka #karrier",
     "publish_at": "2026-12-01T18:45:00+01:00"
-  }
+  },
+  "caption": "Aki ért az AI-hoz, azt nem rúgják ki.\nSőt, már új munkakör is van: cégekhez megy, és betanítja az embereket, hogyan használják.\nKövess be, és tanuld meg te is.\n\n#ai #munka #karrier",
+  "publish_at": "2026-12-01T19:00:00+01:00",
+  "cover": "videos/w48-lm3.jpg"
 }
